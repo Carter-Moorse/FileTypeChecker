@@ -1,2 +1,2 @@
-# File-Verifier
-Verify the type of content of a file.
+# File Identifier
+Identify the MIME-type of any file.
