@@ -1,11 +1,11 @@
-# File Identifier
+## File Identifier
 Identify the MIME-type of any file.
 
-# Configuration
+## Configuration
 Add the Java action to a microflow and insert a (generalization of) FileDocument. Return a string with the best guess of the MIMI-type of the file based on content-type and filename. 
 
-# Dependencies
+## Dependencies
 This module uses Apacha Tika Core library v1.20.
 
-# Limitations
+## Limitations
 For some filetypes it is really dificult to detect the content. 
