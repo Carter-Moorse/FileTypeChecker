@@ -10,16 +10,9 @@
 package fileidentifier.actions;
 
 import java.io.InputStream;
-import java.io.File;
 import org.apache.tika.Tika;
-import org.apache.tika.config.TikaConfig;
-import org.apache.tika.detect.DefaultDetector;
-import org.apache.tika.detect.Detector;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
-import org.apache.tika.mime.MediaType;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.detect.MagicDetector;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
@@ -45,10 +38,30 @@ public class GetMimeType extends CustomJavaAction<java.lang.String>
 		this.InputFile = __InputFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __InputFile);
 
 		// BEGIN USER CODE
-		InputStream inputStream = Core.getFileDocumentContent(this.context(), __InputFile);	
-		Detector detector = new DefaultDetector();
-		MediaType mimetype = detector.detect(TikaInputStream.get(inputStream), new Metadata());
-		return mimetype.toString();
+		InputStream inputStream = null;
+		TikaInputStream tikaStream = null;
+		String mimeType = null;
+
+		try {
+			Tika tika = new Tika();
+			inputStream = Core.getFileDocumentContent(this.context(), __InputFile);
+			tikaStream = TikaInputStream.get(inputStream);
+			Metadata metadata = new Metadata();
+			metadata.set(Metadata.RESOURCE_NAME_KEY, InputFile.getName());
+			mimeType = tika.detect(tikaStream, metadata);
+
+		} catch (Throwable t) {
+			throw t;
+		} finally {
+			if (inputStream != null) {
+				inputStream.close();
+			}
+			if (tikaStream != null) {
+				tikaStream.close();
+			}
+		}
+		return mimeType.toString();
+
 		// END USER CODE
 	}
 

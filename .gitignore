@@ -5,6 +5,7 @@
 /.classpath
 /.project
 /*.mpr.lock
+/testing
 .mendix-cache
 proxies
 
