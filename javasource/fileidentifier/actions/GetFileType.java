@@ -9,6 +9,7 @@
 
 package fileidentifier.actions;
 
+import fileidentifier.impl.*;
 import java.io.InputStream;
 import org.apache.tika.Tika;
 import org.apache.tika.io.TikaInputStream;
@@ -23,52 +24,30 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
  */
 public class GetFileType extends CustomJavaAction<java.lang.String>
 {
-	private IMendixObject __InputFile;
-	private system.proxies.FileDocument InputFile;
+	private IMendixObject __inputFile;
+	private system.proxies.FileDocument inputFile;
 
-	public GetFileType(IContext context, IMendixObject InputFile)
+	public GetFileType(IContext context, IMendixObject inputFile)
 	{
 		super(context);
-		this.__InputFile = InputFile;
+		this.__inputFile = inputFile;
 	}
 
 	@Override
 	public java.lang.String executeAction() throws Exception
 	{
-		this.InputFile = __InputFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __InputFile);
+		this.inputFile = __inputFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __inputFile);
 
 		// BEGIN USER CODE
+		IContext context = this.context();
 
-		if (InputFile != null && InputFile.getHasContents()) {
-
-			InputStream inputStream = null;
-			TikaInputStream tikaStream = null;
-			String mimeType;
-
-			try {
-				Tika tika = new Tika();
-				inputStream = Core.getFileDocumentContent(this.context(), __InputFile);
-				tikaStream = TikaInputStream.get(inputStream);
-				Metadata metadata = new Metadata();
-				metadata.set(Metadata.RESOURCE_NAME_KEY, InputFile.getName());
-				mimeType = tika.detect(tikaStream, metadata);
-
-			} catch (Throwable t) {
-				return "Unable to identify file.";
-
-			} finally {
-				if (inputStream != null) {
-					inputStream.close();
-				}
-				if (tikaStream != null) {
-					tikaStream.close();
-				}
-			}
-			return mimeType.toString();
-
+		if (inputFile != null && inputFile.getHasContents(context)) {
+			FileIdentifier fileIdentifier = new FileIdentifier();
+			return fileIdentifier.getFileType(__inputFile, context);
 		}
+
 		else {
-			return "No file inserted.";
+			throw new NullPointerException("Empty input file in GetFileType.");
 		}
 		// END USER CODE
 	}
