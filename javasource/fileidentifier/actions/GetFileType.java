@@ -19,14 +19,14 @@ import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 /**
- * Returns the MIME-type of the input file. For a complete list of MIME-types go to https://www.freeformatter.com/mime-types-list.html. 
+ * Returns the file type (MIME type) of the input file.
  */
-public class GetMimeType extends CustomJavaAction<java.lang.String>
+public class GetFileType extends CustomJavaAction<java.lang.String>
 {
 	private IMendixObject __InputFile;
 	private system.proxies.FileDocument InputFile;
 
-	public GetMimeType(IContext context, IMendixObject InputFile)
+	public GetFileType(IContext context, IMendixObject InputFile)
 	{
 		super(context);
 		this.__InputFile = InputFile;
@@ -38,30 +38,38 @@ public class GetMimeType extends CustomJavaAction<java.lang.String>
 		this.InputFile = __InputFile == null ? null : system.proxies.FileDocument.initialize(getContext(), __InputFile);
 
 		// BEGIN USER CODE
-		InputStream inputStream = null;
-		TikaInputStream tikaStream = null;
-		String mimeType = null;
 
-		try {
-			Tika tika = new Tika();
-			inputStream = Core.getFileDocumentContent(this.context(), __InputFile);
-			tikaStream = TikaInputStream.get(inputStream);
-			Metadata metadata = new Metadata();
-			metadata.set(Metadata.RESOURCE_NAME_KEY, InputFile.getName());
-			mimeType = tika.detect(tikaStream, metadata);
+		if (InputFile != null && InputFile.getHasContents()) {
 
-		} catch (Throwable t) {
-			throw t;
-		} finally {
-			if (inputStream != null) {
-				inputStream.close();
+			InputStream inputStream = null;
+			TikaInputStream tikaStream = null;
+			String mimeType;
+
+			try {
+				Tika tika = new Tika();
+				inputStream = Core.getFileDocumentContent(this.context(), __InputFile);
+				tikaStream = TikaInputStream.get(inputStream);
+				Metadata metadata = new Metadata();
+				metadata.set(Metadata.RESOURCE_NAME_KEY, InputFile.getName());
+				mimeType = tika.detect(tikaStream, metadata);
+
+			} catch (Throwable t) {
+				return "Unable to identify file.";
+
+			} finally {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+				if (tikaStream != null) {
+					tikaStream.close();
+				}
 			}
-			if (tikaStream != null) {
-				tikaStream.close();
-			}
+			return mimeType.toString();
+
 		}
-		return mimeType.toString();
-
+		else {
+			return "No file inserted.";
+		}
 		// END USER CODE
 	}
 
@@ -71,7 +79,7 @@ public class GetMimeType extends CustomJavaAction<java.lang.String>
 	@Override
 	public java.lang.String toString()
 	{
-		return "GetMimeType";
+		return "GetFileType";
 	}
 
 	// BEGIN EXTRA CODE

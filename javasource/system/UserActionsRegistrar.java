@@ -12,7 +12,7 @@ public class UserActionsRegistrar
   public void registerActions(IActionRegistrator registrator)
   {
     registrator.bundleComponentLoaded();
-    registrator.registerUserAction(fileidentifier.actions.GetMimeType.class);
+    registrator.registerUserAction(fileidentifier.actions.GetFileType.class);
     registrator.registerUserAction(system.actions.VerifyPassword.class);
   }
 }
