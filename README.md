@@ -9,3 +9,9 @@ This module uses the Apacha Tika Core library v1.20.
 
 ## Limitations
 
+## Tested with the following file formats
+  Images
+  - GIF
+  - JPG / JPEG
+  - BMP
+  - PNG
