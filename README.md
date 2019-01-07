@@ -1,4 +1,4 @@
-# File Identifier
+# File Type Checker
 This module provides a fast and easy way to identify the MIME type of any file. It does so by using a combination of the contents and the extension of the input file. 
 
 ## Configuration
