@@ -1,20 +1,12 @@
-package fileidentifier.impl;
+package filetypechecker.impl;
 
-import org.apache.tika.Tika;
-import org.apache.tika.io.TikaInputStream;
-import org.apache.tika.metadata.Metadata;
-
-import com.mendix.core.Core;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
-
-import java.io.InputStream;
 import org.apache.tika.Tika;
 import org.apache.tika.io.TikaInputStream;
 import org.apache.tika.metadata.Metadata;
 import com.mendix.core.Core;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.webui.CustomJavaAction;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
+import java.io.InputStream;
 
 public class FileIdentifier {
 
