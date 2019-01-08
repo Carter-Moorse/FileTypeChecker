@@ -8,4 +8,4 @@ Add the Java action to a microflow and give a specialization of a FileDocument a
 This module uses the Apacha Tika Core library.
 
 ## Limitations
-This module does not verify the integrity of a file. To be able to do that you need to parse the full contents of a file, which consumes more time and memory. 
+This module does not verify the integrity of a file. To be able to do that you need to parse the full contents of a file.
