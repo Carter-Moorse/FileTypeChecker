@@ -1,7 +1,7 @@
 # File Type Checker
 This module provides a fast and easy way to identify the MIME type of any file. It does so by using a combination of the contents and the extension of the input file. 
 
-## Configuration
+## Implementation
 Add the Java action to a microflow and give a specialization of a FileDocument as input parameter. The Java action returns a string with the detected MIMI type of the file. The action returns "application/octet-stream" if the type of the document can not be detected. See the example folder for an example implementation.
 
 ## Dependencies
