@@ -16,3 +16,4 @@ proxies
 /*.mpr.left*
 /*.mpr.right*
 /*.zip
+/bin/
