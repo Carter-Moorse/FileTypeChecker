@@ -39,7 +39,7 @@ public class GetFileType extends CustomJavaAction<java.lang.String>
 		}
 
 		else {
-			throw new NullPointerException("Empty input file in FileIdentifier.");
+			throw new NullPointerException("Empty input file in FileTypeChecker.");
 		}
 		// END USER CODE
 	}
