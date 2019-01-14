@@ -12,4 +12,4 @@ This module uses the Apacha Tika Core library.
 ## Limitations
 This module does not verify the integrity of a file. To be able to do that you need to parse the full contents of a file.
 
- [1]: docs/Logo.png
+ [1]: docs/FileTypeChecker.png
