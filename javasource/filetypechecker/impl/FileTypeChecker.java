@@ -21,7 +21,7 @@ public class FileTypeChecker {
 			inputStream = Core.getFileDocumentContent(context,inputFile);
 			tikaStream = TikaInputStream.get(inputStream);
 			Metadata metadata = new Metadata();
-			String fileName = inputFile.getMember(context, "Name").getName();
+			String fileName = inputFile.getMember(context, "Name").getValue(context).toString();
 			metadata.set(Metadata.RESOURCE_NAME_KEY, fileName);
 			mimeType = tika.detect(tikaStream, metadata);
 			
